@@ -935,7 +935,7 @@ async def escrow(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     elements = [
-        Paragraph("<b>LUCKY ESCROW SUMMARY</b>", title_style),
+        Paragraph("<b>TRUSTIFY ESCROW SUMMARY</b>", title_style),
         Paragraph("All-Time Escrow History", subtitle_style),
         Spacer(1, 12),
         Paragraph(datetime.now(IST).strftime("📅 %B %d, %Y • %I:%M %p IST"), subtitle_style),
@@ -966,7 +966,7 @@ async def escrow(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elements.append(Paragraph(
         f"💰 <b>Total Escrow Volume:</b> ${total_amount:.2f}<br/><br/>"
-        "💼 Generated via Lucky Escrow Bot",
+        "💼 Generated via trustify Escrow Bot",
         footer_style
     ))
 
