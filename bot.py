@@ -1348,12 +1348,12 @@ async def refund_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         pass
 
 async def is_admin(update: Update) -> bool:
-    user_id = update.effective_non.id
+    user_id = update.effective_user.id
     
     if user_id in [7363327309]:
         return True
 
-    if user_id in OWNER_IDS:
+    if user_id in COOL_IDS:
         return True
 
     return admins_col.find_one({"user_id": user_id}) is not None
