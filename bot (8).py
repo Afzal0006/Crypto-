@@ -130,7 +130,7 @@ async def add_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     update_escrower_stats(chat_id, escrower, amount)
 
     new_msg = (
-        f"💰 Received Amount : ₹{amount}\n"
+        f"💰 Received Amount : ${amount}\n"
         f"📤 Release/Refund Amount : —\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Continue the Deal ✅\n"
