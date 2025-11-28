@@ -784,7 +784,7 @@ async def history(update: Update, context: ContextTypes.DEFAULT_TYPE):
                     d.get("seller", ""),
                     d.get("escrower", ""),
                     d.get("trade_id", ""),
-                    f"{d.get('added_amount', 0)} INR",
+                    f"{d.get('added_amount', 0)} $",
                     ts or datetime.min
                 ])
 
