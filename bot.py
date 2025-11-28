@@ -882,7 +882,7 @@ async def escrow(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 d.get("seller", "Unknown"),
                 d.get("escrower", "Unknown"),
                 d.get("trade_id", "N/A"),
-                f"{d.get('added_amount', 0)} INR",
+                f"{d.get('added_amount', 0)} $",
                 date_str,
                 time_str
             ])
