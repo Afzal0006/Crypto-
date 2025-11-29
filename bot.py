@@ -266,7 +266,7 @@ async def release_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     trade_id = deal_info.get("trade_id", "N/A")
 
     msg = (
-        f"📤 Released Amount : ₹{released}\n"
+        f"📤 Released Amount : ${released}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         "Deal completed ✅\n"
         f"Buyer : {buyer}\n"
@@ -287,9 +287,9 @@ async def release_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "────────────────\n"
             f"👤 Buyer   : {buyer}\n"
             f"👤 Seller  : {seller}\n"
-            f"💸 Released: ₹{released}\n"
+            f"💸 Released: ${released}\n"
             f"🆔 Trade ID: #{trade_id}\n"
-            f"💰 Fee     : ₹{fee}\n"
+            f"💰 Fee     : ${fee}\n"
             f"🛡️ Escrowed by {escrower}\n"
             f"📌 Group: {update.effective_chat.title} ({update.effective_chat.id})"
         )
