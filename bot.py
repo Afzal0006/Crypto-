@@ -1339,18 +1339,36 @@ async def refund_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Log to channel
     try:
         log_msg = (
-            "📜 <b>Deal Refunded (Log)</b>\n"
+            "📜 <b>Deal Completed (Log)</b>\n"
             "────────────────\n"
             f"👤 Buyer   : {buyer}\n"
             f"👤 Seller  : {seller}\n"
-            f"💸 Refunded: ₹{refund_amount}\n"
+            f"💸 Released: ${released}\n"
             f"🆔 Trade ID: #{trade_id}\n"
+            f"💰 Fee     : ${fee}\n"
             f"🛡️ Escrowed by {escrower}\n"
             f"📌 Group: {update.effective_chat.title} ({update.effective_chat.id})"
         )
-        await context.bot.send_message(LOG_CHANNEL_ID, log_msg, parse_mode="HTML")
-    except:
-        pass
+
+        keyboard = InlineKeyboardMarkup([
+    [
+        InlineKeyboardButton("📨 Vouch", url="https://t.me/+4TL7eYFRwzkwN2M1"),
+        InlineKeyboardButton("💬 Chat", url="https://t.me/+KYQXPzUS6S8zYTNl")
+    ],
+    [
+        InlineKeyboardButton("⚡ Trusify", url="https://t.me/trustifyescrow")
+    ]
+])
+
+        await context.bot.send_message(
+            LOG_CHANNEL_ID,
+            log_msg,
+            reply_markup=keyboard,
+            parse_mode="HTML"
+        )
+
+    except Exception as e:
+        print(f"Log Error: {e}")
         # ===== /adm ======
 async def adm(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await is_admin(update):
