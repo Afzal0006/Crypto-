@@ -1,15 +1,16 @@
 import re
+import os
 import random
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 from pymongo import MongoClient
 
 # ==== CONFIG ====
-BOT_TOKEN = "8542525558:AAE_Spl65GYktibau7hJ4JnNOxICvl1QlyY"
-MONGO_URI = "mongodb+srv://afzal99550:afzal99550@cluster0.aqmbh9q.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-LOG_CHANNEL_ID = -1002821784807
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+MONGO_URI = os.getenv("MONGO_URI")
+LOG_CHANNEL_ID = int(os.getenv("LOG_CHANNEL_ID")) 
 
-OWNER_IDS = [6998916494]  
+OWNER_IDS = list(map(int, os.getenv("OWNER_IDS").split(",")))  
 
 # ==== MONGO CONNECT ====
 client = MongoClient(MONGO_URI)
