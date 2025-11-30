@@ -166,7 +166,7 @@ async def add_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     update_escrower_stats(chat_id, escrower, amount)
 
     new_msg = (
-        f"💰 Received Amount : ₹{amount}\n"
+        f"💰 Received Amount : ${amount}\n"
         f"📤 Release/Refund Amount : —\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Continue the Deal ✅\n"
@@ -236,7 +236,7 @@ async def fee_button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE)
     release_amount = amount - fee
 
     text = (
-        f"💰 Received Amount : ₹{amount:.2f}\n"
+        f"💰 Received Amount : ${amount:.2f}\n"
         f"📤 Release/Refund Amount : ₹{release_amount:.2f}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Continue the Deal✅\n"
@@ -302,7 +302,7 @@ async def release_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     trade_id = deal_info.get("trade_id", "N/A")
 
     msg = (
-        f"📤 Released Amount : ₹{released}\n"
+        f"📤 Released Amount : ${released}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         "Deal completed ✅\n"
         f"Buyer : {buyer}\n"
@@ -323,9 +323,9 @@ async def release_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "────────────────\n"
             f"👤 Buyer   : {buyer}\n"
             f"👤 Seller  : {seller}\n"
-            f"💸 Released: ₹{released}\n"
+            f"💸 Released: ${released}\n"
             f"🆔 Trade ID: #{trade_id}\n"
-            f"💰 Fee     : ₹{fee}\n"
+            f"💰 Fee     : ${fee}\n"
             f"🛡️ Escrowed by {escrower}\n"
             f"📌 Group: {update.effective_chat.title} ({update.effective_chat.id})"
         )
@@ -396,9 +396,9 @@ async def update_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "────────────────\n"
         f"👤 Buyer  : {buyer}\n"
         f"👤 Seller : {seller}\n"
-        f"💸 Released : ₹{released}\n"
+        f"💸 Released : ${released}\n"
         f"🆔 Trade ID : #{trade_id}\n"
-        f"💰 Fee     : ₹0\n"
+        f"💰 Fee     : $0\n"
         "────────────────\n"
         f"🛡️ Escrowed by {escrower}"
     )
@@ -424,9 +424,9 @@ async def update_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "────────────────\n"
             f"👤 Buyer  : {buyer}\n"
             f"👤 Seller : {seller}\n"
-            f"💸 Released : ₹{released}\n"
+            f"💸 Released : ${released}\n"
             f"🆔 Trade ID : #{trade_id}\n"
-            f"💰 Fee     : ₹0\n"
+            f"💰 Fee     : $0\n"
             f"🛡️ Escrowed by {escrower}\n"
         )
         await context.bot.send_message(LOG_CHANNEL_ID, log_msg, parse_mode="HTML")
@@ -458,7 +458,7 @@ async def deal_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🆔 Trade ID: #{found.get('trade_id')}\n"
         f"👤 Buyer: {found.get('buyer', 'Unknown')}\n"
         f"👤 Seller: {found.get('seller', 'Unknown')}\n"
-        f"💰 Amount: ₹{found.get('added_amount', 0)}\n"
+        f"💰 Amount: ${found.get('added_amount', 0)}\n"
         f"📊 Status: {status}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
@@ -678,7 +678,7 @@ async def mydeals(update, context, page=0):
         if pending_deals:
             text_lines.append(f"🕒 Active Deals: ({len(pending_deals)})")
             text_lines.extend(pending_deals)
-            text_lines.append(f"💼 Total Holding: ₹{total_hold:.2f}")
+            text_lines.append(f"💼 Total Holding: ${total_hold:.2f}")
         else:
             text_lines.append("🕒 No active deals found.")
         text_lines.append("────────────────")
@@ -748,8 +748,8 @@ async def today(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"📅 <b>Today's Summary</b>\n"
         "────────────────\n"
         f"📊 Deals: {total_deals}\n"
-        f"💰 Volume: ₹{total_volume}\n"
-        f"💵 Total Fee: ₹{total_fee}\n"
+        f"💰 Volume: ${total_volume}\n"
+        f"💵 Total Fee: ${total_fee}\n"
         f"🗓 Date: {date_str}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
@@ -797,8 +797,8 @@ async def week(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🗓 <b>Weekly Summary</b>\n"
         "────────────────\n"
         f"📊 Deals: {total_deals}\n"
-        f"💰 Volume: ₹{total_volume}\n"
-        f"💵 Total Fee: ₹{total_fee}\n"
+        f"💰 Volume: ${total_volume}\n"
+        f"💵 Total Fee: ${total_fee}\n"
         f"📅 Week: {start_of_week.strftime('%d %b')} - {end_of_week.strftime('%d %b %Y')}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
