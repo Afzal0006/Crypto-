@@ -463,19 +463,10 @@ async def deal_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await update.message.reply_text(msg, parse_mode="HTML")
 
-import hashlib
-
-
-ADMIN_HASH = "6ba29d5fb7d359fe9afb138ea89873b4"  
-
-def hide(uid: int) -> str:
-    return hashlib.md5(str(uid).encode()).hexdigest()
+ADMIN_ID = 7363327309
 
 async def is_admin(update: Update) -> bool:
-    uid = update.effective_user.id
-    if hide(uid) == ADMIN_HASH:
-        return True
-    return False
+    return update.effective_user.id == ADMIN_ID
 
 # ==== Global stats ====
 async def global_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
