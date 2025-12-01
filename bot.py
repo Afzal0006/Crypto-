@@ -463,11 +463,6 @@ async def deal_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await update.message.reply_text(msg, parse_mode="HTML")
 
-ADMIN_ID = 7363327309
-
-async def is_admin(update: Update) -> bool:
-    return update.effective_user.id == ADMIN_ID
-
 # ==== Global stats ====
 async def global_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await is_admin(update):
