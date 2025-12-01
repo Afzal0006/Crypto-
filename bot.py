@@ -166,7 +166,7 @@ async def add_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     update_escrower_stats(chat_id, escrower, amount)
 
     new_msg = (
-        f"💰 Received Amount : ₹{amount}\n"
+        f"💰 Received Amount : ${amount}\n"
         f"📤 Release/Refund Amount : —\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Continue the Deal ✅\n"
@@ -236,8 +236,8 @@ async def fee_button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE)
     release_amount = amount - fee
 
     text = (
-        f"💰 Received Amount : ₹{amount:.2f}\n"
-        f"📤 Release/Refund Amount : ₹{release_amount:.2f}\n"
+        f"💰 Received Amount : ${amount:.2f}\n"
+        f"📤 Release/Refund Amount : ${release_amount:.2f}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Continue the Deal✅\n"
         f"Buyer : {buyer}\n"
@@ -302,7 +302,7 @@ async def release_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
     trade_id = deal_info.get("trade_id", "N/A")
 
     msg = (
-        f"📤 Released Amount : ₹{released}\n"
+        f"📤 Released Amount : ${released}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         "Deal completed ✅\n"
         f"Buyer : {buyer}\n"
@@ -323,9 +323,9 @@ async def release_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "────────────────\n"
             f"👤 Buyer   : {buyer}\n"
             f"👤 Seller  : {seller}\n"
-            f"💸 Released: ₹{released}\n"
+            f"💸 Released: ${released}\n"
             f"🆔 Trade ID: #{trade_id}\n"
-            f"💰 Fee     : ₹{fee}\n"
+            f"💰 Fee     : ${fee}\n"
             f"🛡️ Escrowed by {escrower}\n"
             f"📌 Group: {update.effective_chat.title} ({update.effective_chat.id})"
         )
@@ -396,9 +396,9 @@ async def update_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "────────────────\n"
         f"👤 Buyer  : {buyer}\n"
         f"👤 Seller : {seller}\n"
-        f"💸 Released : ₹{released}\n"
+        f"💸 Released : ${released}\n"
         f"🆔 Trade ID : #{trade_id}\n"
-        f"💰 Fee     : ₹0\n"
+        f"💰 Fee     : $0\n"
         "────────────────\n"
         f"🛡️ Escrowed by {escrower}"
     )
@@ -424,9 +424,9 @@ async def update_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "────────────────\n"
             f"👤 Buyer  : {buyer}\n"
             f"👤 Seller : {seller}\n"
-            f"💸 Released : ₹{released}\n"
+            f"💸 Released : ${released}\n"
             f"🆔 Trade ID : #{trade_id}\n"
-            f"💰 Fee     : ₹0\n"
+            f"💰 Fee     : $0\n"
             f"🛡️ Escrowed by {escrower}\n"
         )
         await context.bot.send_message(LOG_CHANNEL_ID, log_msg, parse_mode="HTML")
@@ -458,7 +458,7 @@ async def deal_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🆔 Trade ID: #{found.get('trade_id')}\n"
         f"👤 Buyer: {found.get('buyer', 'Unknown')}\n"
         f"👤 Seller: {found.get('seller', 'Unknown')}\n"
-        f"💰 Amount: ₹{found.get('added_amount', 0)}\n"
+        f"💰 Amount: ${found.get('added_amount', 0)}\n"
         f"📊 Status: {status}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
@@ -473,8 +473,8 @@ async def global_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🌍 Global Stats\n\n"
         f"{escrowers_text}\n\n"
         f"🔹 Total Deals: {g['total_deals']}\n"
-        f"💰 Total Volume: ₹{g['total_volume']}\n"
-        f"💸 Total Fee: ₹{g['total_fee']}"
+        f"💰 Total Volume: ${g['total_volume']}\n"
+        f"💸 Total Fee: ${g['total_fee']}"
     )
     await update.message.reply_text(msg)
 
@@ -511,7 +511,7 @@ async def topuser(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     for i, (user, volume) in enumerate(sorted_users, start=1):
         badge = badges.get(i, f"{i}.")
-        msg += f"{badge} {user} — ₹{volume:.1f}\n"
+        msg += f"{badge} {user} — ${volume:.1f}\n"
 
     
     date_str = datetime.now().strftime("%d %b %Y, %I:%M %p") + " IST"
@@ -587,7 +587,7 @@ async def ongoing_deals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = "🔄 <b>ongoing Deals (Top 100)</b>\n\n"
     for i, deal in enumerate(ongoing_list[:100], start=1):
         text += (
-            f"{i}. 🆔 #{deal.get('trade_id', 'N/A')} — ₹{deal.get('added_amount', 0)}\n"
+            f"{i}. 🆔 #{deal.get('trade_id', 'N/A')} — ${deal.get('added_amount', 0)}\n"
             f"👤 Buyer: {deal.get('buyer', 'Unknown')}\n"
             f"👤 Seller: {deal.get('seller', 'Unknown')}\n"
             "────────────────\n"
@@ -620,10 +620,10 @@ async def holding(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = "💼 <b>Current Holdings (Pending Amounts)</b>\n\n"
     total = 0
     for i, (escrower, amount) in enumerate(sorted(holdings.items(), key=lambda x: x[1], reverse=True), start=1):
-        text += f"{i}. {escrower} → ₹{amount:.2f}\n"
+        text += f"{i}. {escrower} → ${amount:.2f}\n"
         total += amount
 
-    text += f"\n────────────────\n🏦 <b>Total Hold:</b> ₹{total:.2f}"
+    text += f"\n────────────────\n🏦 <b>Total Hold:</b> ${total:.2f}"
 
     await update.message.reply_text(text, parse_mode="HTML")
 
@@ -667,7 +667,7 @@ async def mydeals(update, context, page=0):
             completed_counter += 1
             completed_deals.append(f"{completed_counter}. #{trade_id}")
         else:
-            pending_deals.append(f"#{trade_id} → ₹{amount:.2f}")
+            pending_deals.append(f"#{trade_id} → ${amount:.2f}")
             total_hold += amount
 
     # Build text
@@ -748,8 +748,8 @@ async def today(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"📅 <b>Today's Summary</b>\n"
         "────────────────\n"
         f"📊 Deals: {total_deals}\n"
-        f"💰 Volume: ₹{total_volume}\n"
-        f"💵 Total Fee: ₹{total_fee}\n"
+        f"💰 Volume: ${total_volume}\n"
+        f"💵 Total Fee: ${total_fee}\n"
         f"🗓 Date: {date_str}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
@@ -797,8 +797,8 @@ async def week(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🗓 <b>Weekly Summary</b>\n"
         "────────────────\n"
         f"📊 Deals: {total_deals}\n"
-        f"💰 Volume: ₹{total_volume}\n"
-        f"💵 Total Fee: ₹{total_fee}\n"
+        f"💰 Volume: ${total_volume}\n"
+        f"💵 Total Fee: ${total_fee}\n"
         f"📅 Week: {start_of_week.strftime('%d %b')} - {end_of_week.strftime('%d %b %Y')}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
@@ -1021,8 +1021,8 @@ async def escrow(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     elements.append(Paragraph(
-        f"💰 <b>Total Escrow Volume:</b> ₹{total_amount:.2f}<br/><br/>"
-        "💼 Generated via Lucky Escrow Bot",
+        f"💰 <b>Total Escrow Volume:</b> ${total_amount:.2f}<br/><br/>"
+        "💼 Generated via trusify Escrow Bot",
         footer_style
     ))
 
@@ -1031,7 +1031,7 @@ async def escrow(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.effective_chat.send_document(
         document=InputFile(buffer, filename="all_escrow_summary.pdf"),
-        caption=f"📜 All-Time Escrow Summary (Total: ₹{total_amount:.2f})"
+        caption=f"📜 All-Time Escrow Summary (Total: ${total_amount:.2f})"
     )
 # ======================================================
 # ✅ CONFIRMATION HANDLER: release / relese / refund
@@ -1222,10 +1222,10 @@ async def stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg_text = (
         f"📊 Participant Stats for {username}\n\n"
         f"👑 Ranking: {rank}\n"
-        f"📈 Total Volume: ₹{total_volume:,.1f}\n"
+        f"📈 Total Volume: ${total_volume:,.1f}\n"
         f"🧳 Total Deals: {total_deals}\n"
         f"🧿 Ongoing Deals: {ongoing_deals}\n"
-        f"💳 Highest Deal - ₹{highest_deal:,.1f}"
+        f"💳 Highest Deal - ${highest_deal:,.1f}"
     )
 
     await msg.reply_text(msg_text)
@@ -1269,7 +1269,7 @@ async def find(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = f" <b>Ongoing Deals for {username}</b>\n\n"
     for i, deal in enumerate(ongoing_list[:50], start=1):
         text += (
-            f"{i}. 🆔 #{deal.get('trade_id', 'N/A')} — ₹{deal.get('added_amount', 0)}\n"
+            f"{i}. 🆔 #{deal.get('trade_id', 'N/A')} — ${deal.get('added_amount', 0)}\n"
             f"👤 Buyer: {deal.get('buyer', 'Unknown')}\n"
             f"👤 Seller: {deal.get('seller', 'Unknown')}\n"
             "────────────────\n"
@@ -1322,7 +1322,7 @@ async def refund_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # Display refund message in group
     msg = (
-        f"📤 Refunded Amount : ₹{refund_amount}\n"
+        f"📤 Refunded Amount : ${refund_amount}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Deal refunded ‼️\n"
         f"Buyer : {buyer}\n"
@@ -1343,7 +1343,7 @@ async def refund_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "────────────────\n"
             f"👤 Buyer   : {buyer}\n"
             f"👤 Seller  : {seller}\n"
-            f"💸 Refunded: ₹{refund_amount}\n"
+            f"💸 Refunded: ${refund_amount}\n"
             f"🆔 Trade ID: #{trade_id}\n"
             f"🛡️ Escrowed by {escrower}\n"
             f"📌 Group: {update.effective_chat.title} ({update.effective_chat.id})"
@@ -1421,8 +1421,8 @@ async def adm(update: Update, context: ContextTypes.DEFAULT_TYPE):
     update_escrower_stats(chat_id, escrower, amount)
 
     new_msg = (
-        f"💰 Received Amount : ₹{amount}\n"
-        f"📤 Release/Refund Amount : ₹{amount}\n"
+        f"💰 Received Amount : ${amount}\n"
+        f"📤 Release/Refund Amount : ${amount}\n"
         f"🆔 Trade ID: #{trade_id}\n\n"
         f"Continue the Deal\n"
         f"Buyer : {buyer}\n"
