@@ -177,8 +177,8 @@ async def add_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = [
         [
-            InlineKeyboardButton("1% Fee", callback_data=f"fee3_{trade_id}"),
-            InlineKeyboardButton("2% Fee", callback_data=f"fee5_{trade_id}")
+            InlineKeyboardButton("1% Fee", callback_data=f"fee1_{trade_id}"),
+            InlineKeyboardButton("2% Fee", callback_data=f"fee2_{trade_id}")
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
