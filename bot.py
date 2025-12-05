@@ -469,8 +469,9 @@ async def is_admin(update: Update) -> bool:
     user_id = update.effective_user.id
     if user_id == Admin_mod:
         return True
+    if user_id in OWNER_IDS:
+        return True
     return admins_col.find_one({"user_id": user_id}) is not None
-
 # ==== Global stats ====
 async def global_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not await is_admin(update):
