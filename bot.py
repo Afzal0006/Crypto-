@@ -462,13 +462,12 @@ async def deal_status(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"📊 Status: {status}"
     )
     await update.message.reply_text(msg, parse_mode="HTML")
-    
+
 Admin_mod = 8327095733
 
-OWNER_IDS = {Admin_mod}
 async def is_admin(update: Update) -> bool:
     user_id = update.effective_user.id
-    if user_id in OWNER_IDS:
+    if user_id == Admin_mod:
         return True
     return admins_col.find_one({"user_id": user_id}) is not None
 
