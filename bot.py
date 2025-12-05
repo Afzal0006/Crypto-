@@ -1355,7 +1355,7 @@ async def refund_deal(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 InlineKeyboardButton("💬 Chat", url="https://t.me/+KYQXPzUS6S8zYTNl")
             ],
             [
-                InlineKeyboardButton("⚡ Trustify", url="https://t.me/trustifyescrow")
+                InlineKeyboardButton("⚡ TRUSTIFY", url="https://t.me/trustifyescrow")
             ]
         ])
 
